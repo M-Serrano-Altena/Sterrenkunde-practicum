@@ -38,7 +38,7 @@ def search_messages(service, user_id, search_string):
             return ""
 
     except HttpError as error:
-        print(f'An error occurred: {error}')
+        print(f"An error has occurred: {error}")
 
 
 # lees de e-mail en bepaal waar op de lijst iemand aan de beurt is
@@ -132,7 +132,7 @@ def get_message(service, user_id, msg_id, naam):
             return 
 
     except HttpError as error:
-        print(f'An error occurred: {error}')    
+        print(f"An error has occurred: {error}")
 
 # main programma
 if __name__ == '__main__':
