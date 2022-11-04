@@ -116,7 +116,7 @@ def get_message(service, user_id, msg_id, naam):
                 if naam.casefold() in full_name.casefold() and not stop:
                     stop = True
                     if stand_by and counter != 0:
-                        print(f"{full_name}: {round(counter)}e op stand-by, kan om 4 uur 's middags opgeroepen worden")
+                        print(f"{full_name}: {round(counter)}e op stand-by, kan tot 4 uur 's middags opgeroepen worden")
 
 
                     elif semi_stand_by and counter != 0:
