@@ -14,8 +14,8 @@
 *Optioneel: batch bestand werkend maken om niet steeds in de terminal te hoeven runnen*
 1. Download "sterrenkunde_practicum.bat" met dezelfde path als de andere bestanden
 2. Klik met het rechtermuisknop op het batch bestand en klik op 'show more options' onderaan en dan op 'edit'
-3. Vul bij "Path where your Python exe is stored\python.exe" "Path where your Python script is stored\sterrenkunde_practicum.py" de correcte paths op jouw computer.
-   Bij mij was het bijvoorbeeld: "C:\Users\Marc_\anaconda3\python.exe" "C:\Users\Marc_\Documents\GitHub\Sterrenkunde-practicum\sterrenkunde_practicum.py"
+3. Vul bij "Path where your Python exe is stored\python.exe" "Path where your Python script is stored\sterrenkunde_practicum.py" de correcte paths op jouw computer
+   in plaats van "C:\Users\Marc_\anaconda3\python.exe" "C:\Users\Marc_\Documents\GitHub\Sterrenkunde-practicum\sterrenkunde_practicum.py"
 4. Sla de aanpassingen op met CTRL+S
 5. Nu kan je dit bestand openen en dan wordt vanzelf het programma gerund. 
    Voer een naam in en type 'stop' als je het programma wilt stoppen of klik op enter om het programma voor een ander persoon te herhalen
