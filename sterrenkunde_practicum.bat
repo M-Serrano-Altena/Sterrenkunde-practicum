@@ -7,7 +7,7 @@
 set /a loop=%loop%+1
 echo ...
 set /p input= Type 'stop' om het programma te stoppen, klik enter om door te gaan:  
-if not %input%=="stop" goto next
+if "%input%"=="stop" goto next
 goto loop
 
 :next
