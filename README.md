@@ -1,6 +1,8 @@
 # Sterrenkunde-practicum
+*Vind je een bug? Stuur mij een mail op Marc.Serrano.Altena@gmail.com*
+
 **Instructies:**
-1. Download alle bestanden *("sterrenkunde_practicum.bat" is optioneel)*
+1. Download "sterrenkunde_practicum.py", "client_secret_json.py" en "Google.py" *("sterrenkunde_practicum.bat" is optioneel)*
 2. Voer "pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib" 
    in de terminal om een module te downloaden om met gmail te kunnen verbinden
 3. Run "sterrenkunde_practicum.py" in VS code
