@@ -1,7 +1,7 @@
 @echo off
 :loop
 
-"C:\Users\Marc_\anaconda3\python.exe" "C:\Users\Marc_\Documents\GitHub\Sterrenkunde-practicum\sterrenkunde_practicum.py"
+"Path where your Python exe is stored\python.exe" "Path where your Python script is stored\sterrenkunde_practicum.py"
 
 set /a loop=%loop%+1
 echo ...
