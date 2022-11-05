@@ -109,6 +109,10 @@ def get_message(service, user_id, msg_id, naam):
                         lines[line[0] - 2] = lines[line[0] - 2].replace("\r", "")
                         full_name = f"{line[1]} {lines[line[0] - 1]} {lines[line[0] - 2]}"
                     
+                    elif lines[line[0] - 1].casefold() == "":
+                        lines[line[0] - 2] = lines[line[0] - 2].replace("\r", "")
+                        full_name = f"{line[1]} {lines[line[0] - 2]}"
+
                     else:
                         full_name = f"{line[1]} {lines[line[0] - 1]}"
 
@@ -116,10 +120,12 @@ def get_message(service, user_id, msg_id, naam):
                 if naam.casefold() in full_name.casefold() and not stop:
                     stop = True
                     if stand_by and counter != 0:
+                        print()
                         print(f"{full_name}: {round(counter)}e op stand-by, kan tot 4 uur 's middags opgeroepen worden")
 
 
                     elif semi_stand_by and counter != 0:
+                        print()
                         print(f"{full_name}: {round(counter)}e op semi-stand-by, waarschijnlijk eerst volgende heldere dag aan de beurt", end="")
 
                         if counter <= 15:
@@ -127,6 +133,7 @@ def get_message(service, user_id, msg_id, naam):
 
 
                     elif overig and counter != 0:
+                        print()
                         print(f"{full_name}: {round(counter)}e in de overige lijst, waarschijnlijk op de {trunc(counter / 30) + 3}e heldere dag aan de beurt.")
 
             return 
