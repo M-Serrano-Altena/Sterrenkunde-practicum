@@ -1,4 +1,6 @@
 # Sterrenkunde-practicum
+*Vind je een bug? Stuur mij een mail op Marc.Serrano.Altena@gmail.com*
+
 **Instructies:**
 1. Download alle bestanden *("sterrenkunde_practicum.bat" is optioneel)*
 2. Voer "pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib" 
