@@ -124,9 +124,10 @@ def get_message(service, user_id, msg_id, naam):
 
 
                     elif semi_stand_by and counter != 0:
-                        print(f"{full_name}: {round(counter)}e op semi-stand-by, waarschijnlijk eerst volgende heldere dag aan de beurt.")
+                        if counter > 15:
+                            print(f"{full_name}: {round(counter)}e op semi-stand-by, waarschijnlijk eerst volgende heldere dag aan de beurt.")
 
-                        if counter <= 15:
+                        elif counter <= 15:
                             print(f"{full_name}: {round(counter)}e op semi-stand-by, waarschijnlijk eerst volgende heldere dag aan de beurt, maar als {round(counter)} mensen afvallen ben je vandaag aan de beurt.")
 
 
