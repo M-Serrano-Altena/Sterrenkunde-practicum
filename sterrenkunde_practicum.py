@@ -141,13 +141,15 @@ def get_message(service, user_id, msg_id, naam):
 
 # main programma
 if __name__ == '__main__':
-    msg_ids = search_messages(service, 'me', 'from:m.r.sloot@uva.nl subject: stand-by')
-    naam = input("Voer je (volledige) naam in: ")
     begin = False
     num = -1
-    # de derde parameter is iemands (volledige) naam
+
+    msg_ids = search_messages(service, 'me', 'from:m.r.sloot@uva.nl subject: stand-by')
+    naam = input("Voer je (volledige) naam in: ")
+
     while not begin:
-        num += 1        
+        num += 1
+                
         if num > 0:
             print()
             print("Deze waarde is misschien niet het meest recent!")
