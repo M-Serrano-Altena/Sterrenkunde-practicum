@@ -43,6 +43,7 @@ def search_messages(service, user_id, search_string):
 
 # lees de e-mail en bepaal waar op de lijst iemand aan de beurt is
 def get_message(service, user_id, msg_id, naam):
+    global begin
     try:
         message = service.users().messages().get(userId=user_id, id=msg_id, format='raw').execute()
 
@@ -61,7 +62,6 @@ def get_message(service, user_id, msg_id, naam):
 
             tussenvoegsels = ['de', 'van', 'van de', 'van der', 'van den', 'el', 'le', 'ter', 'ten']
             full_name = "place-holder"
-            begin = False
             counter = 0
             stand_by = False
             semi_stand_by = False
@@ -143,6 +143,9 @@ def get_message(service, user_id, msg_id, naam):
 if __name__ == '__main__':
     msg_ids = search_messages(service, 'me', 'from:m.r.sloot@uva.nl subject: stand-by')
     naam = input("Voer je (volledige) naam in: ")
-    
+    begin = False
+    num = -1
     # de derde parameter is iemands (volledige) naam
-    get_message(service, 'me', msg_ids[0], naam) 
+    while not begin:
+        num += 1
+        get_message(service, 'me', msg_ids[num], naam) 
