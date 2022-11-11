@@ -149,10 +149,10 @@ if __name__ == '__main__':
 
     while not begin:
         num += 1
-                
+
         if num > 0:
             print()
-            print("Deze waarde is misschien niet het meest recent!")
+            print("LET OP: Deze waarde is misschien niet het meest recent!")
             print()
 
         get_message(service, 'me', msg_ids[num], naam)
