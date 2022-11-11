@@ -147,5 +147,10 @@ if __name__ == '__main__':
     num = -1
     # de derde parameter is iemands (volledige) naam
     while not begin:
-        num += 1
-        get_message(service, 'me', msg_ids[num], naam) 
+        num += 1        
+        if num > 0:
+            print()
+            print("Deze waarde is misschien niet het meest recent!")
+            print()
+
+        get_message(service, 'me', msg_ids[num], naam)
