@@ -7,6 +7,7 @@ import email
 import base64
 from Google import create_service
 from math import trunc
+import re
 
 # gegevens om te verbinden met gmail
 CLIENT_SECRET_FILE = 'client_secret_file.json'
@@ -60,13 +61,14 @@ def get_message(service, user_id, msg_id, naam):
             part1 = base64.b64decode(part1)
             part1 = part1.decode('utf-8')
 
-            tussenvoegsels = ['de', 'van', 'van de', 'van der', 'van den', 'el', 'le', 'ter', 'ten']
+            tussenvoegsels = ['van der', 'van den', 'van de', 'van', 'de', 'el', 'le', 'ter', 'ten']
             full_name = "place-holder"
             counter = 0
             stand_by = False
             semi_stand_by = False
             overig = False
             stop = False
+            spatie = False
             lines = part1.split('\n')
             
             for line in enumerate(lines):
@@ -77,33 +79,68 @@ def get_message(service, user_id, msg_id, naam):
 
                 if line[1] == "" or line[1].casefold() in tussenvoegsels:
                     continue
-
-                if "De volgende" in line[1] and "studenten staan stand-by" in line[1]:
+                
+                if line[1].casefold() == "rasjied sloot":
                     begin = True
+                    continue 
+
+                elif begin and "stand-by" in line[1].casefold() and not "semi-stand-by" in line[1].casefold():
                     stand_by = True
+                    continue
                 
                 elif stand_by:
                     counter += 0.5
 
-                if "De volgende studenten staan semi-stand-by" in line[1]:
+                if begin and "semi-stand-by" in line[1].casefold():
                     stand_by = False
                     counter = 0
                     semi_stand_by = True
+                    continue
 
                 elif semi_stand_by:
                     counter += 0.5
 
-                if line[1] == "De rest van de lijst in volgorde:":
+                if begin and "de rest" in line[1].casefold():
                     semi_stand_by = False
                     counter = 0
                     overig = True
+                    continue
 
                 elif overig:
                     counter += 0.5
                 
-                if counter % 1 == 0 and begin:
+                # de correcte naam vinden van de persoon
+                # als de voor- en achternamen met spaties gesplits zijn
+                if "  " in line[1]:
+                    stop = False
+                    spatie = True
+                    naam_lijst = line[1]
+                    naam_lijst = re.split(r'\s{2,}', naam_lijst)
+
+                    naam_lijst.reverse()
+                    # print(naam_lijst, counter)
+
+                    # voor tussenvoegsels die uit meer dan 1 woord bestaan
+                    for tussenvoegsel in tussenvoegsels:
+
+                        if (tussenvoegsel+" ") in naam_lijst[0].casefold():
+                            _, naam_lijst[0] = naam_lijst[0].split(f"{tussenvoegsel} ")
+                            full_name = f"{str(naam_lijst[0]).title()} {tussenvoegsel} {str(naam_lijst[1]).title()}"
+                            break
+                        
+                        else:
+                            full_name = " ".join(naam_lijst)
+
+                    # print(full_name)
+
+
+
+                # als de voor- en achternaam op verschillende regels zijn
+                elif counter % 1 == 0 and begin:
+                    spatie = False
                     stop = False
                     lines[line[0] - 1] = lines[line[0] - 1].replace("\r", "")
+ 
                     
                     if lines[line[0] - 1].casefold() in tussenvoegsels:  
                         lines[line[0] - 2] = lines[line[0] - 2].replace("\r", "")
@@ -116,8 +153,13 @@ def get_message(service, user_id, msg_id, naam):
                     else:
                         full_name = f"{line[1]} {lines[line[0] - 1]}"
 
+
                 # casefold maakt alles lower case
                 if naam.casefold() in full_name.casefold() and not stop:
+
+                    if spatie:
+                        counter *= 2
+
                     stop = True
                     if stand_by and counter != 0:
                         print(f"{full_name}: {round(counter)}e op stand-by, kan tot 4 uur 's middags opgeroepen worden")
@@ -134,6 +176,8 @@ def get_message(service, user_id, msg_id, naam):
                     elif overig and counter != 0:
                         print(f"{full_name}: {round(counter)}e in de overige lijst, waarschijnlijk op de {trunc(counter / 30) + 3}e heldere dag aan de beurt.")
 
+                    if spatie:
+                        counter /= 2
             return 
 
     except HttpError as error:
