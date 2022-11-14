@@ -64,6 +64,7 @@ def get_message(service, user_id, msg_id, naam):
             tussenvoegsels = ['van der', 'van den', 'van de', 'van', 'de', 'el', 'le', 'ter', 'ten']
             full_name = "place-holder"
             counter = 0
+            dag = 0
             stand_by = False
             semi_stand_by = False
             overig = False
@@ -118,7 +119,6 @@ def get_message(service, user_id, msg_id, naam):
                     naam_lijst = re.split(r'\s{2,}', naam_lijst)
 
                     naam_lijst.reverse()
-                    # print(naam_lijst, counter)
 
                     # voor tussenvoegsels die uit meer dan 1 woord bestaan
                     for tussenvoegsel in tussenvoegsels:
@@ -130,9 +130,6 @@ def get_message(service, user_id, msg_id, naam):
                         
                         else:
                             full_name = " ".join(naam_lijst)
-
-                    # print(full_name)
-
 
 
                 # als de voor- en achternaam op verschillende regels zijn
@@ -174,8 +171,15 @@ def get_message(service, user_id, msg_id, naam):
 
 
                     elif overig and counter != 0:
-                        print(f"{full_name}: {round(counter)}e in de overige lijst, waarschijnlijk op de {trunc(counter / 30) + 3}e heldere dag aan de beurt.")
 
+                        if counter % 30 != 0:
+                            dag = trunc(counter / 30) + 3
+
+                        else:
+                            dag = counter / 30 + 2
+
+                        print(f"{full_name}: {round(counter)}e in de overige lijst, waarschijnlijk op de {round(dag)}e heldere dag aan de beurt.")        
+                    
                     if spatie:
                         counter /= 2
             return 
