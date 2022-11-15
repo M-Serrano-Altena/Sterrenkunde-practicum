@@ -81,18 +81,18 @@ def get_message(service, user_id, msg_id, naam):
                 if line[1] == "" or line[1].casefold() in tussenvoegsels:
                     continue
                 
-                if line[1].casefold() == "rasjied sloot":
+                if line[1].casefold() == "rasjied sloot" or line[1].casefold() == "groeten, rasjied":
                     begin = True
                     continue 
 
-                elif begin and "stand-by" in line[1].casefold() and not "semi-stand-by" in line[1].casefold():
+                elif begin and "stand-by" in line[1].casefold() and not ("semi-stand-by" in line[1].casefold() or "semi" in line[1].casefold()):
                     stand_by = True
                     continue
                 
                 elif stand_by:
                     counter += 0.5
 
-                if begin and "semi-stand-by" in line[1].casefold():
+                if begin and ("semi-stand-by" in line[1].casefold() or "semi stand-by" in line[1].casefold()):
                     stand_by = False
                     counter = 0
                     semi_stand_by = True
