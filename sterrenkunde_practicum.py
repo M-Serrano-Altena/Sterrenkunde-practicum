@@ -81,7 +81,7 @@ def get_message(service, user_id, msg_id, naam):
                 if line[1] == "" or line[1].casefold() in tussenvoegsels:
                     continue
                 
-                if line[1].casefold() == "rasjied sloot" or line[1].casefold() == "groeten, rasjied":
+                if line[1].casefold() == "rasjied sloot" or ("groet" in line[1].casefold() and "rasjied" in line[1].casefold()):
                     begin = True
                     continue 
 
