@@ -81,7 +81,7 @@ def get_message(service, user_id, msg_id, naam):
                 if line[1] == "" or line[1].casefold() in tussenvoegsels:
                     continue
                 
-                if line[1].casefold() == "rasjied sloot" or ("groet" in line[1].casefold() and "rasjied" in line[1].casefold()):
+                if "rasjied" in line[1].casefold():
                     begin = True
                     continue 
 
@@ -186,6 +186,7 @@ def get_message(service, user_id, msg_id, naam):
 
     except HttpError as error:
         print(f"An error has occurred: {error}")
+
 
 # main programma
 if __name__ == '__main__':
