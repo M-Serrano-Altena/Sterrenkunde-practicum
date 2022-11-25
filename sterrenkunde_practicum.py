@@ -81,17 +81,20 @@ def get_message(service, user_id, msg_id, naam):
                 if line[1] == "" or line[1].casefold() in tussenvoegsels:
                     continue
                 
+                # het programma begint als 'rasjied' in de email voorkomt 
                 if "rasjied" in line[1].casefold():
                     begin = True
                     continue 
-
+                
+                # de stand-by lijst begint als 'stand-by' genoemt wordt in een zin (en 'rasjied' is voorgekomen)
                 elif begin and "stand-by" in line[1].casefold() and not ("semi-stand-by" in line[1].casefold() or "semi" in line[1].casefold()):
                     stand_by = True
                     continue
                 
                 elif stand_by:
                     counter += 0.5
-
+                
+                # de semi-stand-by lijst begint als 'semi-stand-by' of 'semi stand-by' voorkomt in een zin (en de stand-by lijst begonnen was) 
                 if begin and ("semi-stand-by" in line[1].casefold() or "semi stand-by" in line[1].casefold()):
                     stand_by = False
                     counter = 0
@@ -101,6 +104,7 @@ def get_message(service, user_id, msg_id, naam):
                 elif semi_stand_by:
                     counter += 0.5
 
+                # de overige lijst begint als 'de rest' voorkomt in een zin (en de semi-stand-by lijst al begonnen was)
                 if begin and "de rest" in line[1].casefold():
                     semi_stand_by = False
                     counter = 0
@@ -151,7 +155,6 @@ def get_message(service, user_id, msg_id, naam):
                         full_name = f"{line[1]} {lines[line[0] - 1]}"
 
 
-                # casefold maakt alles lower case
                 if naam.casefold() in full_name.casefold() and not stop:
 
                     if spatie:
@@ -193,6 +196,7 @@ if __name__ == '__main__':
     begin = False
     num = -1
 
+    # filtert de email op 'stand-by' in de titel en de email moet van rasjied komen
     msg_ids = search_messages(service, 'me', 'from:m.r.sloot@uva.nl subject: stand-by')
     naam = input("Voer je (volledige) naam in: ")
 
