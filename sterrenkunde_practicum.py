@@ -86,16 +86,16 @@ def get_message(service, user_id, msg_id, naam):
                     begin = True
                     continue 
                 
-                # de stand-by lijst begint als 'stand-by' genoemt wordt in een zin (en 'rasjied' is voorgekomen)
-                elif begin and "stand-by" in line[1].casefold() and not ("semi-stand-by" in line[1].casefold() or "semi" in line[1].casefold()):
+                # de stand-by lijst begint als 'stand' en 'by' genoemt wordt (en niet semi) in een zin (en 'rasjied' is voorgekomen)
+                elif begin and ("stand" in line[1].casefold() and "by" in line[1].casefold()) and not ("semi" in line[1].casefold()):
                     stand_by = True
                     continue
                 
                 elif stand_by:
                     counter += 0.5
                 
-                # de semi-stand-by lijst begint als 'semi-stand-by' of 'semi stand-by' voorkomt in een zin (en de stand-by lijst begonnen was) 
-                if begin and ("semi-stand-by" in line[1].casefold() or "semi stand-by" in line[1].casefold()):
+                # de semi-stand-by lijst begint als 'semi', 'stand' en 'by' voorkomt in een zin (en de stand-by lijst begonnen was) 
+                if begin and ("semi" in line[1].casefold() and "stand" in line[1].casefold() and "by" in line[1].casefold()):
                     stand_by = False
                     counter = 0
                     semi_stand_by = True
